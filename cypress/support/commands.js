@@ -27,3 +27,12 @@
 Cypress.Commands.add('getDataTest', (dataTestSelector) => {
   return cy.get(`[data-test="${dataTestSelector}"]`)
 })
+
+Cypress.Commands.add('login', () => {
+  cy.session([email, password], () => {
+    cy.get('input[name="email"]').type(email)
+    cy.get('input[name="password"]').type(password)
+    cy.get('button[class="submitting-button auth-button"]').click()
+    cy.url().should('contain', '/login-successful')
+  })
+})
